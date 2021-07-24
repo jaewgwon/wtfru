@@ -15,11 +15,11 @@ public class TestController {
 
     @GetMapping("/test")
     public String testMethod() {
-        SessionDTO dto = dao.selectSession(1);
+        SessionDTO dto = dao.get(1);
         System.out.println(dto.getLocationLink());
         System.out.println(dto.getUid());
 
-        dao.insertSession("test","1234", "someLink");
+        dao.update("test","1234", "someLink");
         return "testView";
     }
 

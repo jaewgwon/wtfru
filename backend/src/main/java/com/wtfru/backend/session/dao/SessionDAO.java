@@ -15,14 +15,14 @@ public interface SessionDAO {
     })
 
     @Select("select * from sessions where session_id=#{sessionId}")
-    public SessionDTO selectSession(int sessionId);
+    public SessionDTO get(int sessionId);
 
     @Delete("delete from sessions where uid=#{uid}")
-    public int deleteSession(String uid);
+    public int delete(String uid);
 
     @Insert("insert into sessions (session_id, title, password, location_link, status) " +
             "values (nextval('session_id'),#{title},#{password},#{locationLink}, 0)")
-    public int insertSession(String title, String password, String locationLink);
+    public int update(String title, String password, String locationLink);
 
     @Select("select title from sessions where title=#{title}")
     public boolean isTitleAvailable(String title);

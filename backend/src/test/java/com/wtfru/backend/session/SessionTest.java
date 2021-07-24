@@ -34,9 +34,9 @@ public class SessionTest {
 
         SessionDTO session = new SessionDTO(uid, sessionId, title, password, locationLink, status);
 
-        BDDMockito.given(sessionDAO.selectSession(1)).willReturn(session);
+        BDDMockito.given(sessionDAO.get(1)).willReturn(session);
 
-        SessionDTO responseSession = sessionDAO.selectSession(1);
+        SessionDTO responseSession = sessionDAO.get(1);
 
         org.assertj.core.api.Assertions.assertThat(responseSession).isEqualTo(session);
     }
@@ -50,8 +50,8 @@ public class SessionTest {
         String locationLink = "someLink";
         SessionDTO session = new SessionDTO();
 
-        sessionDAO.insertSession(title, password, locationLink);
-        Mockito.verify(sessionDAO).insertSession(title, password, locationLink);
+        sessionDAO.update(title, password, locationLink);
+        Mockito.verify(sessionDAO).update(title, password, locationLink);
     }
 
 }
