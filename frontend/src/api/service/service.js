@@ -14,10 +14,10 @@ service.interceptors.request.use(config => {
 })
 
 service.interceptors.response.use(res => {
-    if (res.status === 200) {
+    if (200 <= res.status && 300 > res.status) {
         return res.data
-    }
-    return 
+    } else throw Error("HTTP ERROR", res.status)
+
 }, error => {
     return Promise.reject('Response error', error)
 })

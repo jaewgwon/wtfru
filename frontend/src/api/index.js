@@ -1,66 +1,58 @@
 import service from "./service/service";
 
-function getSession(hostData) {
+function getSession() {
     return service ({
-        url: "api/seesion?password=true",
+        url: "api/session?password=true",
         method: "get",
-        hostData
     });
 };
 
-function postSession(hostData) {
+function postSession() {
     return service ({
         url: "api/session?password=true",
         method: "post", 
-        hostData
     });
 };
 
-function deleteSession(hostData) {
+function deleteSession() {
     return service ({
         url: "api/session?password=true",
         method: "delete",
-        hostData
     });
 };
 
-function getLocation(clientData) {
+function getLocation(uid, locationId) {
     return service ({
-        url: ("api/session" + {uid} + "/location/" + {locationId}),
+        url: ("api/session/" + uid + "/location/" + locationId),
         method: "get",
-        clientData
     });
 };
 
-function postLocation(clientData) {
+function postLocation(uid, locationId) {
     return service ({
-        url: ("api/session/" + {uid} + "/location/" + {locationId}),
+        url: ("api/session/" + uid + "/location/" + locationId),
         method: "post", 
-        clientData
+    });
+}
+
+function patchLocation(uid, locationId) {
+    return service ({
+        url: ("api/session/" + uid + "/location/" + locationId),
+        method: "patch"
     });
 };
 
-function patchLocation(clientData) {
+function getStatus(uid) {
     return service ({
-        url: ("api/session/" + {uid} + "/location/" + {locationId}),
-        method: "patch",
-        clientData
-    });
-};
-
-function getStatus(clientData) {
-    return service ({
-        url: ("api/session/" + {uid} + "/status"),
+        url: ("api/session/" + uid + "/status"),
         method: "get",    
-        clientData
     });
 };
 
-function putStatus(clientData) {
+function putStatus(uid) {
     return service ({
-        url: ("api/session/" + {uid} + "/status"),
+        url: ("api/session/" + uid + "/status"),
         method: "put",
-        clientData
     });
 };
 
