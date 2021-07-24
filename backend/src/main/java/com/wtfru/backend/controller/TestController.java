@@ -19,7 +19,7 @@ public class TestController {
         System.out.println(dto.getLocationLink());
         System.out.println(dto.getUid());
 
-        dao.update("test","1234", "someLink");
+        dao.post("test","1234", "someLink");
         return "testView";
     }
 

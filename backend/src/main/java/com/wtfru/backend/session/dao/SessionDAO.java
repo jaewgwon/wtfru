@@ -2,7 +2,6 @@ package com.wtfru.backend.session.dao;
 
 import com.wtfru.backend.session.dto.SessionDTO;
 import org.apache.ibatis.annotations.*;
-import org.springframework.stereotype.Repository;
 
 public interface SessionDAO {
     @Results(id="session", value={
@@ -20,11 +19,15 @@ public interface SessionDAO {
     @Delete("delete from sessions where uid=#{uid}")
     public int delete(String uid);
 
+    @SelectKey(statement = "SELECT uid('sessions')", keyProperty = "uid", before =  true, resultType = String.class)
     @Insert("insert into sessions (session_id, title, password, location_link, status) " +
             "values (nextval('session_id'),#{title},#{password},#{locationLink}, 0)")
-    public int update(String title, String password, String locationLink);
+    public boolean post(String title, String password, String locationLink);
 
-    @Select("select title from sessions where title=#{title}")
-    public boolean isTitleAvailable(String title);
+    @Select("select exists (select * from sessions where title=#{title}) as isChk")
+    public int isTitleAvailable(String title);
+
+    @Select("select *  from sessions where title = #{title}")
+    public SessionDTO getByTitle(String title);
 
 }
