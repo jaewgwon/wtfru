@@ -3,11 +3,8 @@ package com.wtfru.backend.session.service;
 import com.wtfru.backend.session.dao.SessionDAO;
 import com.wtfru.backend.session.dto.SessionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,15 +13,13 @@ public class SessionServiceImpl implements SessionService {
     SessionDAO sessionDAO;
 
     @Override
-    public String postSession(HttpServletRequest request, HttpServletResponse response, Model model) {
-        String password = (String)request.getAttribute("password");
+    public String postSession(Map<String, String> request) {
+        String password = request.get("password");
 
         String pwPattern = "^(?=.*\\d).{4,4}$";
         Matcher matcher = Pattern.compile(pwPattern).matcher(password);
 
-        HashMap<String, SessionDTO> results = new HashMap<String, SessionDTO>();
-
-        if(sessionDAO.isTitleAvailable((String)request.getAttribute("title")) == 0){
+        if(sessionDAO.isTitleAvailable(request.get("title")) == 0){
             return "duplicate title exists";
         }
         if(!matcher.matches()){
@@ -33,8 +28,7 @@ public class SessionServiceImpl implements SessionService {
 
         try {
             // TODO(Sangyeop): change locationLink URL
-            sessionDAO.post((String)request.getAttribute("title"),
-                    (String)request.getAttribute("password"),
+            sessionDAO.post(request.get("title"), request.get("password"),
                     "someLink");
         } catch(Exception e) {
             e.printStackTrace();
@@ -45,12 +39,11 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public SessionDTO getSession(HttpServletRequest request) {
+    public SessionDTO getSession(String title) {
         SessionDTO result;
-        String sessionTitle = (String)request.getAttribute("title");
 
         try {
-            result = sessionDAO.getByTitle(sessionTitle);
+            result = sessionDAO.getByTitle(title);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
