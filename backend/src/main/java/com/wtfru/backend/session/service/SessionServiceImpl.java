@@ -3,6 +3,7 @@ package com.wtfru.backend.session.service;
 import com.wtfru.backend.session.dao.SessionDAO;
 import com.wtfru.backend.session.dto.SessionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,12 +12,13 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Service
 public class SessionServiceImpl implements SessionService {
     @Autowired
     SessionDAO sessionDAO;
 
     @Override
-    public String postSession(HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String postSession(HttpServletRequest request) {
         String password = (String)request.getAttribute("password");
 
         String pwPattern = "^(?=.*\\d).{4,4}$";

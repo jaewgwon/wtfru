@@ -4,7 +4,7 @@ import com.wtfru.backend.session.dto.SessionDTO;
 import org.apache.ibatis.annotations.*;
 
 public interface SessionDAO {
-    @Results(id="session", value={
+    @Results(id="ssession", value={
             @Result(property = "uid", column = "uid"),
             @Result(property = "sessionId", column = "session_id"),
             @Result(property = "title", column = "title"),
@@ -19,7 +19,6 @@ public interface SessionDAO {
     @Delete("delete from sessions where uid=#{uid}")
     public int delete(String uid);
 
-    @SelectKey(statement = "SELECT uid('sessions')", keyProperty = "uid", before =  true, resultType = String.class)
     @Insert("insert into sessions (session_id, title, password, location_link, status) " +
             "values (nextval('session_id'),#{title},#{password},#{locationLink}, 0)")
     public boolean post(String title, String password, String locationLink);
