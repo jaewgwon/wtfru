@@ -1,6 +1,5 @@
 package com.wtfru.backend.session;
 
-import com.wtfru.backend.controller.TestController;
 import com.wtfru.backend.session.dao.SessionDAO;
 import com.wtfru.backend.session.dto.SessionDTO;
 import com.wtfru.backend.session.service.SessionService;
@@ -17,8 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 public class SessionTest {
-    @Autowired
-    TestController ts;
     @Autowired
     SessionService ss;
     @MockBean
