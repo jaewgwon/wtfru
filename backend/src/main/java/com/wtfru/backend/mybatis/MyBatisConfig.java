@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan(basePackages = {"com.wtfru.backend"})
+@MapperScan(basePackages = {"com.wtfru.backend.session.dao"})
 public class MyBatisConfig {
     @Bean
     public SqlSessionFactory seqSessionFactory(DataSource dataSource)

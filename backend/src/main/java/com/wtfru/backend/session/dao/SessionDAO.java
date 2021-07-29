@@ -4,15 +4,9 @@ import com.wtfru.backend.session.dto.SessionDTO;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
+@Repository
 public interface SessionDAO {
-    @Results(id="session", value={
-            @Result(property = "uid", column = "uid"),
-            @Result(property = "sessionId", column = "session_id"),
-            @Result(property = "title", column = "title"),
-            @Result(property = "password", column = "password"),
-            @Result(property = "locationLink", column = "location_link"),
-            @Result(property = "status", column = "status")
-    })
+
 
     @Select("select * from sessions where session_id=#{sessionId}")
     public SessionDTO get(int sessionId);
@@ -22,9 +16,20 @@ public interface SessionDAO {
 
     @Insert("insert into sessions (session_id, title, password, location_link, status) " +
             "values (nextval('session_id'),#{title},#{password},#{locationLink}, 0)")
-    public int update(String title, String password, String locationLink);
+    public boolean post(String title, String password, String locationLink);
 
-    @Select("select title from sessions where title=#{title}")
-    public boolean isTitleAvailable(String title);
+    @Select("select exists (select * from sessions where title=#{title}) as isChk")
+    public boolean isTitleExisted(String title);
+
+    @Select("select * from sessions where title=#{title}")
+    @Results(id="sessionDTO", value={
+            @Result(property = "uid", column = "uid"),
+            @Result(property = "sessionId", column = "session_id"),
+            @Result(property = "title", column = "title"),
+            @Result(property = "password", column = "password"),
+            @Result(property = "locationLink", column = "location_link"),
+            @Result(property = "status", column = "status")
+    })
+    public SessionDTO getByTitle(String title);
 
 }

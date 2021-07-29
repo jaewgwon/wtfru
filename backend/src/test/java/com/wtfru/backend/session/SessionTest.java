@@ -1,8 +1,8 @@
 package com.wtfru.backend.session;
 
-import com.wtfru.backend.controller.TestController;
 import com.wtfru.backend.session.dao.SessionDAO;
 import com.wtfru.backend.session.dto.SessionDTO;
+import com.wtfru.backend.session.service.SessionService;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @ExtendWith(MockitoExtension.class)
 public class SessionTest {
     @Autowired
-    TestController ts;
+    SessionService ss;
     @MockBean
     private SessionDAO sessionDAO;
 
@@ -50,8 +50,8 @@ public class SessionTest {
         String locationLink = "someLink";
         SessionDTO session = new SessionDTO();
 
-        sessionDAO.update(title, password, locationLink);
-        Mockito.verify(sessionDAO).update(title, password, locationLink);
+        sessionDAO.post(title, password, locationLink);
+        Mockito.verify(sessionDAO).post(title, password, locationLink);
     }
 
 }
