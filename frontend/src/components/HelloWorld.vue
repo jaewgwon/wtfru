@@ -1,14 +1,26 @@
 <template>
-  <div>
-    <h1>Hello World!</h1>
+  <div class="Cbal">
+    <label>{{ getMsg }}</label>
+    <br/>
+    <button @click='onChangedMsg'>Click</button>
   </div>
 </template>
 
 <script>
-
+export default {
+  computed: {
+    getMsg () {
+      return this.$store.getters.getMsg
+    }
+  },
+  method: {
+    onChangedMsg () {
+      this.$store.dispatch('callMutation', { newMsg: 'World!!' })
+    }
+  }
+}
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
 </style>
