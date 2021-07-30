@@ -1,4 +1,4 @@
-# frontend
+# fuck
 
 ## Project setup
 ```
