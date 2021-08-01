@@ -1,10 +1,15 @@
 package com.wtfru.backend.session.controller;
 
+import com.wtfru.backend.jwt.JwtFilter;
+import com.wtfru.backend.jwt.TokenProvider;
+import com.wtfru.backend.service.TokenService;
 import com.wtfru.backend.session.dto.SessionDTO;
 import com.wtfru.backend.session.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -14,9 +19,17 @@ import java.util.Map;
 public class SessionController {
     @Autowired
     SessionService sessionService;
+    @Autowired
+    TokenService tokenService;
+
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
+
+    public SessionController(AuthenticationManagerBuilder authenticationManagerBuilder) {
+        this.authenticationManagerBuilder = authenticationManagerBuilder;
+    }
 
     @PostMapping(value = "/session", produces = "application/json; charset=utf-8")
-    public ResponseEntity postSession(@RequestParam String password,
+    public ResponseEntity<SessionDTO> postSession(@RequestParam String password,
                                       @RequestBody Map<String, String> request) {
         SessionDTO result;
 
@@ -34,6 +47,9 @@ public class SessionController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        return ResponseEntity.ok(result);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + tokenService.generateJWT(request));
+
+        return new ResponseEntity<>(result, httpHeaders, HttpStatus.OK);
     }
 }

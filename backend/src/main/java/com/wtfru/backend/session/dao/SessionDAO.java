@@ -28,7 +28,7 @@ public interface SessionDAO {
             @Result(property = "title", column = "title"),
             @Result(property = "password", column = "password"),
             @Result(property = "locationLink", column = "location_link"),
-            @Result(property = "status", column = "status")
+            @Result(property = "status", column = "status"),
     })
     public SessionDTO getByTitle(String title);
 

@@ -1,4 +1,4 @@
-package com.wtfru.backend.mybatis;
+package com.wtfru.backend.config;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
