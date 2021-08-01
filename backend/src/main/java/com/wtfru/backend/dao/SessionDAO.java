@@ -1,6 +1,6 @@
-package com.wtfru.backend.session.dao;
+package com.wtfru.backend.dao;
 
-import com.wtfru.backend.session.dto.SessionDTO;
+import com.wtfru.backend.dto.SessionDTO;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 

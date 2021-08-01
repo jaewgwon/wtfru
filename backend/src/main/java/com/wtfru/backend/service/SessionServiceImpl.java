@@ -1,7 +1,7 @@
-package com.wtfru.backend.session.service;
+package com.wtfru.backend.service;
 
-import com.wtfru.backend.session.dao.SessionDAO;
-import com.wtfru.backend.session.dto.SessionDTO;
+import com.wtfru.backend.dao.SessionDAO;
+import com.wtfru.backend.dto.SessionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

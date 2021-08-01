@@ -1,10 +1,9 @@
-package com.wtfru.backend.session.controller;
+package com.wtfru.backend.controller;
 
 import com.wtfru.backend.jwt.JwtFilter;
-import com.wtfru.backend.jwt.TokenProvider;
 import com.wtfru.backend.service.TokenService;
-import com.wtfru.backend.session.dto.SessionDTO;
-import com.wtfru.backend.session.service.SessionService;
+import com.wtfru.backend.dto.SessionDTO;
+import com.wtfru.backend.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
