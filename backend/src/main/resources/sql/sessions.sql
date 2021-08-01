@@ -5,8 +5,9 @@ CREATE TABLE sessions
  uid           varchar(255) DEFAULT uuid_generate_v4 (),
  session_id    int NOT NULL,
  title         varchar(50) NOT NULL,
- password      varchar(4) NOT NULL,
+ password      varchar(255) NOT NULL,
  location_link varchar(255) NOT NULL,
+ role          varchar(13) NOT NULL,
  status        int NOT NULL,
  CONSTRAINT PK_sessions PRIMARY KEY ( uid )
 );
@@ -21,5 +22,5 @@ COMMENT ON COLUMN sessions.session_id IS 'session id';
 
 CREATE SEQUENCE session_id;
 
-INSERT INTO sessions (session_id, title, password, location_link, status)
-VALUES (nextval('session_id'), 'mooyaho', '1234', 'https://1234', 0);
+INSERT INTO sessions (session_id, title, password, location_link, role, status)
+VALUES (nextval('session_id'), 'mooyaho', '1234', 'https://1234', 'ROLE_USER', 0);

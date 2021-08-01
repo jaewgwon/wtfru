@@ -1,6 +1,6 @@
-package com.wtfru.backend.session.service;
+package com.wtfru.backend.service;
 
-import com.wtfru.backend.session.dto.SessionDTO;
+import com.wtfru.backend.dto.SessionDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 

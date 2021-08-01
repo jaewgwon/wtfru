@@ -1,6 +1,7 @@
-package com.wtfru.backend.session.dto;
+package com.wtfru.backend.dto;
 
 import lombok.*;
+
 
 @Getter
 @Setter

@@ -1,5 +1,6 @@
 package com.wtfru.backend.jwt;
 
+import com.wtfru.backend.service.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -16,10 +17,10 @@ public class JwtFilter extends GenericFilter {
 
     public static final String AUTHORIZATION_HEADER = "Authorization";
 
-    private TokenProvider tokenProvider;
+    private TokenService tokenService;
 
-    public JwtFilter(TokenProvider tokenProvider) {
-        this.tokenProvider = tokenProvider;
+    public JwtFilter(TokenService tokenService) {
+        this.tokenService = tokenService;
     }
 
     @Override
@@ -29,8 +30,8 @@ public class JwtFilter extends GenericFilter {
         String jwt = resolveToken(httpServletRequest);
         String requestURI = httpServletRequest.getRequestURI();
 
-        if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
-            Authentication authentication = tokenProvider.getAuthentication(jwt);
+        if (StringUtils.hasText(jwt) && tokenService.validateToken(jwt)) {
+            Authentication authentication = tokenService.getAuthentication(jwt);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             logger.debug("Security Context에 '{}' 인증 정보를 저장했습니다, uri: {}", authentication.getName(), requestURI);
         } else {
