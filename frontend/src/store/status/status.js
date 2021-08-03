@@ -4,7 +4,8 @@ import { getStatus, putStatus } from "../../api/index"
 const state = {
     uid: [],
     status: [],
-    messgae: 'Status had been update'
+    messgae: 'Status had been update',
+    error: ''
 }
 
 // mutations
@@ -17,6 +18,9 @@ const mutations = {
         state.status = status,
         state.uid = uid,
         state.message = message
+    },
+    error(state, error) {
+        return state.error = error
     }
 }
 
@@ -28,7 +32,7 @@ const actions = {
             uid.commit('GET_STATE',response.data);
         })
         .catch(error => {
-            console.log(error)
+            context.commit('error', error)
         })
     },
     PUT_STATUS() {
@@ -37,7 +41,7 @@ const actions = {
             uid.commit('PUT_STATE',response.data);
         })
         .catch(error => {
-            console.log(error)
+            context.commit('error', error)
         })
     },
 }
