@@ -4,8 +4,8 @@ import { getStatus, putStatus } from "../../api/index"
 const state = {
     uid: [],
     status: [],
-    messgae: 'Status had been update',
-    error: ''
+    messgae: [],
+    error: ""
 }
 
 // mutations
@@ -44,11 +44,6 @@ const actions = {
             context.commit('error', error)
         })
     },
-}
-
-// getters
-const getters = {
-
 }
 
 export default {

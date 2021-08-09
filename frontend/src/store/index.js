@@ -8,9 +8,9 @@ import StatusStore from "./status"
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  moduled: {
-    location: LocationStore,
-    session: SessionStore,
-    status: StatusStore
-  }
+    moduled: {
+        location: LocationStore,
+        session: SessionStore,
+        status: StatusStore
+    }
 })

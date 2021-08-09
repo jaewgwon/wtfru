@@ -1,4 +1,4 @@
-import { getLocation, postLocation, patchLocation } from "../../api/index"
+import { getLocation, postLocation, patchLocation } from "../../api/index";
 
 // state
 const state = {
@@ -8,9 +8,9 @@ const state = {
     status: [],
     latitude: [],
     longitude: [],
-    message: 'The Location has been updated',
-    error: ''
-}
+    message: [],
+    error: ""
+    };
 
 // mutations
 const mutations = {
@@ -20,63 +20,57 @@ const mutations = {
         state.latitude = latitude,
         state.longitude = longitude,
         state.locationId = locationId,
-        state.timestamp = timestamp
+        state.timestamp = timestamp;
     },
-    PUT_CLIENT(state, uid, latitude, longitude) {
-        state.uid = uid,
-        state.latitude = latitude,
-        state.longitude = longitude
-    },
-    PUT_CLIENT(state, uid, latitude, longitude, message) {
+    POST_CLIENT(state, uid, latitude, longitude, locationId, timestamp, status) {
         state.uid = uid,
         state.latitude = latitude,
         state.longitude = longitude,
-        state.message = message
+        state.locationId = locationId,
+        state.timestamp = timestamp,
+        state.status = status;
+    },
+    PATCH_CLIENT(state, message) {
+        state.message = message;
     },
     error(state, error) {
-        return state.error = error
-    }
-}
+        return (state.error = error);
+    },
+};
 
 // actions
 const actions = {
     GET_LOCATION() {
         getLocation()
-        .then(response => {
-            uid.commit('GET_CLIENT',response.data);
-        })
-        .catch(error => {
-            context.commit('error', error)
-        })
+            .then((response) => {
+                uid.commit("GET_CLIENT", response.data);
+            })
+            .catch((error) => {
+                context.commit("error", error);
+            });
     },
     POST_LOCATION() {
         postLocation()
-        .then(response => {
-            uid.commit('PUT_CLIENT',response.data);
+        .then((response) => {
+            uid.commit("POST_CLIENT", response.data);
         })
-        .catch(error => {
-            context.commit('error', error)
-        })
+        .catch((error) => {
+            context.commit("error", error);
+        });
     },
     PATCH_LOCATION() {
         patchLocation()
-        .then(response => {
-            uid.commit('PUT_CLIENT',response.data);
+        .then((response) => {
+            uid.commit("PATCH_CLIENT", response.data);
         })
-        .catch(error => {
-            context.commit('error', error)
-        })
+        .catch((error) => {
+            context.commit("error", error);
+        });
     },
-}
-
-// getters
-const getters = {
-
-}
+};
 
 export default {
-  state,
-  mutations,
-  actions,
-  getters
-}
+    state,
+    mutations,
+    actions,
+};
