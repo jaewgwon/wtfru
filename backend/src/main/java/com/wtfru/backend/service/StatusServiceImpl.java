@@ -1,5 +1,8 @@
 package com.wtfru.backend.service;
 
+import com.wtfru.backend.dao.SessionDAO;
+import com.wtfru.backend.dao.StatusDAO;
+import com.wtfru.backend.exception.Exceptions;
 import com.wtfru.backend.session.dto.SessionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,14 +20,14 @@ public class StatusServiceImpl implements StatusService {
 
     @Override
     @Transactional
-    public void putStatus(Map<String, String> request) {
-        if(!statusDAO.update(request.get("uid"), request.get("status"))) {
-            throw SessionNotFoundException;
+    public void putStatus(Map<String, String> request) throws Exceptions.SessionNotFoundException {
+        if(!statusDAO.update(request.get("uid"), Integer.parseInt(request.get("status")))) {
+            throw new Exceptions.SessionNotFoundException("the session is not found");
         }
     }
 
     @Override
     public SessionDTO getStatus(Map<String, String> request) {
-        return sessionDAO.get(request.get("uid"));
+        return sessionDAO.getByUid(request.get("uid"));
     }
 }
