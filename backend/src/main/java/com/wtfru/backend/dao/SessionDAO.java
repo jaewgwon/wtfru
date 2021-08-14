@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SessionDAO {
-
     @Select("select * from sessions where session_id=#{sessionId}")
     public SessionDTO get(int sessionId);
 
@@ -31,4 +30,6 @@ public interface SessionDAO {
     })
     public SessionDTO getByTitle(String title);
 
+    @Select("select * from sessions where uid=#{uid}")
+    public SessionDTO getByUid(String uid);
 }
