@@ -60,13 +60,11 @@ public class SessionServiceImpl implements SessionService, UserDetailsService {
 
     @Transactional
     @Override
-    public SessionDTO postSession(@RequestBody Map<String, String> request)
+    public SessionDTO postSession(SessionDTO session)
             throws DuplicateTitleException, InvalidPasswordException, SQLProcessException {
-        String password = request.get("password");
+        Matcher matcher = matcher(session.getPassword());
 
-        Matcher matcher = matcher(password);
-
-        if(sessionDAO.isTitleExisted(request.get("title"))){
+        if(sessionDAO.isTitleExisted(session.getTitle())){
             throw new DuplicateTitleException("Duplicate title exists");
         }
 
@@ -76,15 +74,14 @@ public class SessionServiceImpl implements SessionService, UserDetailsService {
 
         try {
             // TODO(Sangyeop): change locationLink URL
-            sessionDAO.post(request.get("title"), passwordEncoder.encode(password),
+            sessionDAO.post(session.getTitle(), passwordEncoder.encode(session.getPassword()),
                     "someLink");
         } catch(Exception e) {
             throw new SQLProcessException("Database error occurred");
         }
+        SessionDTO result = sessionDAO.getByTitle(session.getTitle());
 
-        SessionDTO session = sessionDAO.getByTitle(request.get("title"));
-
-        return session;
+        return result;
     }
 
     @Override

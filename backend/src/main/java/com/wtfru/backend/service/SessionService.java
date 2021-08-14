@@ -25,7 +25,7 @@ public interface SessionService {
         }
     }
 
-    public SessionDTO postSession(@RequestBody Map<String, String> request)
+    public SessionDTO postSession(SessionDTO session)
             throws DuplicateTitleException, InvalidPasswordException, SQLProcessException;
     public SessionDTO getSession(String title);
 }

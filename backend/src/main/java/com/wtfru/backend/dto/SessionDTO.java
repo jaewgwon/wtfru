@@ -2,6 +2,8 @@ package com.wtfru.backend.dto;
 
 import lombok.*;
 
+import java.util.Date;
+
 
 @Getter
 @Setter
@@ -13,6 +15,7 @@ public class SessionDTO {
     private String password;
     private String locationLink;
     private int status;
+    private Date expiredDate;
 
     public int getSessionId() {
         return sessionId;
@@ -60,6 +63,14 @@ public class SessionDTO {
 
     public void setLocationLink(String locationLink) {
         this.locationLink = locationLink;
+    }
+
+    public Date getExpiredDate() {
+        return expiredDate;
+    }
+
+    public void setExpiredDate(Date expiredDate) {
+        this.expiredDate = expiredDate;
     }
 
     public SessionDTO() {
