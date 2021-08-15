@@ -24,9 +24,12 @@ public class StatusController {
 
     @GetMapping(value = "/status", produces = "application/json; charset=utf-8")
     public ResponseEntity getStatus(@RequestBody Map<String, String> request) {
+        SessionDTO session = new SessionDTO();
+        session.setUid(request.get("uid"));
+
         SessionDTO result = null;
         try {
-            result = statusService.getStatus(request);
+            result = statusService.getStatus(session);
         } catch (Exception e) {
             logger.debug("Database error occured", e);
             return ResponseEntity.status(404).body("message: The session is not found");
@@ -36,8 +39,12 @@ public class StatusController {
 
     @PutMapping(value = "/status", produces = "application/json; charset=utf-8")
     public ResponseEntity<String> putStatus(@RequestBody Map<String, String> request) {
+        SessionDTO session = new SessionDTO;
+        session.setUid(request.get("uid"));
+        session.setStatus(Integer.parseInt(request.get("status")));
+
         try {
-            statusService.putStatus(request);
+            statusService.putStatus(session);
         } catch (Exceptions.SessionNotFoundException e) {
             logger.debug("Database error occurred", e);
             return ResponseEntity.status(404).body("message: The session does not exist");
