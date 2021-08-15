@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.Map;
 
 public interface StatusService {
-    public void putStatus(@RequestBody Map<String, String> request) throws Exceptions.SessionNotFoundException;
-    public SessionDTO getStatus(@RequestBody Map<String, String> request);
+    public void putStatus(SessionDTO session) throws Exceptions.SessionNotFoundException;
+    public SessionDTO getStatus(SessionDTO session);
 }
