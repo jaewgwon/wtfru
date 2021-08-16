@@ -1,6 +1,6 @@
 package com.wtfru.backend.session;
 
-import com.wtfru.backend.session.controller.SessionController;
+import com.wtfru.backend.controller.SessionController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

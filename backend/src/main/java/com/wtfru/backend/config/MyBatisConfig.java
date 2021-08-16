@@ -1,4 +1,4 @@
-package com.wtfru.backend.mybatis;
+package com.wtfru.backend.config;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan(basePackages = {"com.wtfru.backend.session.dao"})
+@MapperScan(basePackages = {"com.wtfru.backend.dao"})
 public class MyBatisConfig {
     @Bean
     public SqlSessionFactory seqSessionFactory(DataSource dataSource)

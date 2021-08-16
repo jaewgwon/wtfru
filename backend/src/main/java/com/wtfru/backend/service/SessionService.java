@@ -1,6 +1,6 @@
-package com.wtfru.backend.session.service;
+package com.wtfru.backend.service;
 
-import com.wtfru.backend.session.dto.SessionDTO;
+import com.wtfru.backend.dto.SessionDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -25,7 +25,7 @@ public interface SessionService {
         }
     }
 
-    public SessionDTO postSession(@RequestBody Map<String, String> request)
+    public SessionDTO postSession(SessionDTO session)
             throws DuplicateTitleException, InvalidPasswordException, SQLProcessException;
     public SessionDTO getSession(String title);
 }
