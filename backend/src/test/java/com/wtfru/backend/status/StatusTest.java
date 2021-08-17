@@ -3,7 +3,7 @@ package com.wtfru.backend.status;
 import com.wtfru.backend.dao.SessionDAO;
 import com.wtfru.backend.dao.StatusDAO;
 import com.wtfru.backend.service.StatusService;
-import com.wtfru.backend.session.dto.SessionDTO;
+import com.wtfru.backend.dto.SessionDTO;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
