@@ -1,8 +1,8 @@
 package com.wtfru.backend.session;
 
-import com.wtfru.backend.session.dao.SessionDAO;
-import com.wtfru.backend.session.dto.SessionDTO;
-import com.wtfru.backend.session.service.SessionService;
+import com.wtfru.backend.dao.SessionDAO;
+import com.wtfru.backend.dto.SessionDTO;
+import com.wtfru.backend.service.SessionService;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;

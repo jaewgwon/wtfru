@@ -1,7 +1,7 @@
 package com.wtfru.backend.service;
 
 import com.wtfru.backend.exception.Exceptions;
-import com.wtfru.backend.session.dto.SessionDTO;
+import com.wtfru.backend.dto.SessionDTO;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Map;
