@@ -15,8 +15,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,6 +32,7 @@ public class TokenService implements InitializingBean {
     private final Logger logger = LoggerFactory.getLogger(TokenService.class);
 
     private static final String AUTHORITIES_KEY = "auth";
+    public static final String AUTHORIZATION_HEADER = "Authorization";
 
     private final String secret;
     private final long tokenValidityInMilliseconds;
@@ -105,5 +108,13 @@ public class TokenService implements InitializingBean {
             logger.info("JWT 토큰이 잘못되었습니다.");
         }
         return false;
+    }
+
+    public String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer")) {
+            return bearerToken.substring(7);
+        }
+        return null;
     }
 }
