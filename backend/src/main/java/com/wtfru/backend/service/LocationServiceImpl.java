@@ -21,8 +21,8 @@ public class LocationServiceImpl implements LocationService {
     public LocationDTO getLocation(String sessionUid) {return locationDAO.get(sessionUid);}
 
     @Override
-    public void patchLocation(String sessionUid, LocationDTO location) throws SessionNotFoundException {
-        if(!locationDAO.update(sessionUid, location)) {
+    public void patchLocation(LocationDTO location) throws SessionNotFoundException {
+        if(!locationDAO.update(location)) {
             throw new SessionNotFoundException("the session is not found");
         }
     }
