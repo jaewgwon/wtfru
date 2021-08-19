@@ -1,6 +1,5 @@
 package com.wtfru.backend.controller;
 
-import com.wtfru.backend.jwt.JwtFilter;
 import com.wtfru.backend.service.TokenService;
 import com.wtfru.backend.dto.SessionDTO;
 import com.wtfru.backend.service.SessionService;
@@ -65,7 +64,7 @@ public class SessionController {
         }
 
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + tokenService.createToken(request));
+        httpHeaders.add(tokenService.AUTHORIZATION_HEADER, "Bearer " + tokenService.createToken(request));
 
         return new ResponseEntity<>(result, httpHeaders, HttpStatus.OK);
     }
