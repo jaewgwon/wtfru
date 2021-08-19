@@ -15,6 +15,6 @@ public interface LocationDAO {
     public LocationDTO get(String sessionUid);
 
     @Update("update locations set latitude={location.latitude}, longitude=#{location.longitude} " +
-            "where session_uid=#{sessionUid")
-    public boolean update(String sessionUid, LocationDTO location);
+            "where session_uid=#{location.sessionUid")
+    public boolean update(LocationDTO location);
 }
