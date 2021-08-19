@@ -9,6 +9,7 @@ CREATE TABLE sessions
  location_link varchar(255) NOT NULL,
  role          varchar(13) NOT NULL,
  status        int NOT NULL,
+ expired_date  date NULL,
  CONSTRAINT PK_sessions PRIMARY KEY ( uid )
 );
 

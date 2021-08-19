@@ -16,6 +16,7 @@ public class SessionDTO {
     private String locationLink;
     private int status;
     private Date expiredDate;
+    private LocationDTO locationDTO;
 
     public int getSessionId() {
         return sessionId;
@@ -71,6 +72,14 @@ public class SessionDTO {
 
     public void setExpiredDate(Date expiredDate) {
         this.expiredDate = expiredDate;
+    }
+
+    public LocationDTO getLocationDTO() {
+        return locationDTO;
+    }
+
+    public void setLocationDTO(LocationDTO locationDTO) {
+        this.locationDTO = locationDTO;
     }
 
     public SessionDTO() {
