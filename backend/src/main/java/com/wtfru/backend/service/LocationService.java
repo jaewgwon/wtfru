@@ -8,5 +8,5 @@ public interface LocationService {
 
     public LocationDTO getLocation(String sessionUid);
 
-    public void patchLocation(String sessionUid, LocationDTO location) throws DataIOException.SessionNotFoundException;
+    public void patchLocation(LocationDTO location) throws DataIOException.SessionNotFoundException;
 }
