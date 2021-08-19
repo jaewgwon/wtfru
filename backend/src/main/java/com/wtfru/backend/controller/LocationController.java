@@ -1,5 +1,6 @@
 package com.wtfru.backend.controller;
 
+import com.wtfru.backend.dao.SessionDAO;
 import com.wtfru.backend.exception.DataIOException.*;
 import com.wtfru.backend.service.LocationService;
 import com.wtfru.backend.dto.LocationDTO;
@@ -21,21 +22,36 @@ public class LocationController {
     TokenService tokenService;
 
     @PostMapping(value = "/location", produces = "application/json; charset=utf-8")
-    public ResponseEntity postLocation(@RequestBody Map<String, String> request) {
+    public ResponseEntity postLocation(HttpServletRequest servletRequest, @RequestBody Map<String, String> request) {
+        String jwt = tokenService.resolveToken(servletRequest);
+        String sessionTitle = tokenService.decodeToken(jwt);
+
         LocationDTO location = new LocationDTO();
         location.setLatitude(Double.parseDouble(request.get("latitude")));
         location.setLongitude(Double.parseDouble(request.get("longitude")));
-        LocationDTO result;
 
-        result = locationService.postLocation(location);
+        LocationDTO result;
+        try {
+            result = locationService.postLocation(sessionTitle,location);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The session is not found");
+        }
 
         return ResponseEntity.ok(result);
     }
 
     @GetMapping(value = "/location", produces = "application/json; charset=utf-8")
     public ResponseEntity getLocation(HttpServletRequest request) {
-        LocationDTO location = new LocationDTO();
-        location.setLocationId();
+        LocationDTO result;
+        String jwt = tokenService.resolveToken(request);
+
+        try {
+            result = locationService.getLocation(tokenService.decodeToken(jwt));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The location is not found");
+        }
+
+        return ResponseEntity.ok(result);
     }
 
     @PatchMapping(value = "/location", produces = "application/json; charset=utf-8")
