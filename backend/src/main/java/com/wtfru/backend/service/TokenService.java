@@ -20,14 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Key;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
-public class TokenService implements InitializingBean {
+public class TokenService implements InitializingBean{
 
     private final Logger logger = LoggerFactory.getLogger(TokenService.class);
 
@@ -116,5 +113,11 @@ public class TokenService implements InitializingBean {
             return bearerToken.substring(7);
         }
         return null;
+    }
+
+    public String decodeToken(String token) {
+        String decodedJwt = Jwts.parserBuilder().setSigningKey(key).build().parse(token).getBody().toString();
+        String[] body = decodedJwt.split(",");
+        return body[0].substring(5);
     }
 }
