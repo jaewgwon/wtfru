@@ -34,6 +34,7 @@ public class LocationController {
         try {
             result = locationService.postLocation(sessionTitle,location);
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The session is not found");
         }
 
