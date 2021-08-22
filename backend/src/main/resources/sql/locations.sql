@@ -1,7 +1,7 @@
 CREATE TABLE locations
 (
- location_id int NOT NULL,
- session_uid uuid default NOT NULL,
+ location_id SERIAL DEFAULT NOT NULL,
+ session_uid varchar(255) NOT NULL,
  latitude    numeric NULL,
  longitude   numeric NULL,
  updated_date date NULL,
