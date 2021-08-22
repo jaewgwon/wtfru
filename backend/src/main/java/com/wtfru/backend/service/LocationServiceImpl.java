@@ -21,8 +21,12 @@ public class LocationServiceImpl implements LocationService {
     @Transactional
     public LocationDTO postLocation(String sessionTitle, LocationDTO location) {
         SessionDTO session = sessionDAO.getByTitle(sessionTitle);
-        location.setSessionUid(session.getUid());
-        return locationDAO.post(location);
+
+        if(!locationDAO.post(session.getUid(), location.getLatitude(), location.getLongitude())) {
+            //TODO(KSY): Handle exception appropriately
+            return null;
+        }
+        return locationDAO.get(session.getUid());
     }
 
     @Override
@@ -33,7 +37,7 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public void patchLocation(LocationDTO location) throws SessionNotFoundException {
-        if(!locationDAO.update(location)) {
+        if(!locationDAO.update(location.getLatitude(), location.getLongitude(), location.getSessionUid())) {
             throw new SessionNotFoundException("the session is not found");
         }
     }
