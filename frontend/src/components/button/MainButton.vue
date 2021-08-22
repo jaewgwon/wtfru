@@ -14,25 +14,25 @@ export default {
 <style scoped>
 @media screen and (max-width:575px){
   .main-button{
-    padding-top: 15%;
+    padding-top: 10vh;
   }
   .main-button-join {
-    margin-left: 2%;
+    margin-left: 4vw;
     padding-left: 21px;
     padding-right: 21px;
   }
 }
 @media screen and (min-width:576px) {
-  .main-button{
-    padding-top: 15%;
+  .main-button {
+    padding-top: 10vh;
   }
   .main-button-create {
-    margin-right: 13px;
+    margin-right: 2vw;
     padding: 5px 20px 5px 20px;
     font-size: 20px;
   }
   .main-button-join {
-    margin-left: 13px;
+    margin-left: 2vw;
     padding: 5px 31px 5px 31px;
     font-size: 20px;
   }

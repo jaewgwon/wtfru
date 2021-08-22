@@ -30,13 +30,15 @@ export default {
 <style scoped>
 @media screen and (min-width:576px) {
   .main-typography {
-    margin-top: 15%;
+    margin-top: 10vh;
   }
 }
 @media screen and (max-width: 575px) {
   .main-typography {
-    margin-top: 35%;
+    margin-top: 25vh;
   }
 }
-
+.header {
+  text-align: center;
+}
 </style>

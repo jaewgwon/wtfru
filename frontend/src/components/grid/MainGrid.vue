@@ -19,7 +19,7 @@
       </b-col>
       <b-col class="use-contents-part-b-col" lg="3" md="6" sm="6" xs="12" style="min-width: 150px">
         <b-card header="04" img-src img-alt="image" img-top>
-          <b-card-text>참가한 방의 링크를 친구에게 공유하면 친구의 승인여부에 따라 친구의 현재 위치를 확인할 수 있습니다</b-card-text>
+          <b-card-text>참가한 방의 링크를 상대방에게 공유하면 승인여부에 따라 상대방의 현재 위치를 확인할 수 있습니다</b-card-text>
         </b-card>
       </b-col>
     </b-row>
@@ -32,7 +32,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .use-contents-part{
   margin-top: 130px;
 }
