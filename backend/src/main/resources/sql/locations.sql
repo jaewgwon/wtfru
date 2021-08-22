@@ -1,7 +1,7 @@
 CREATE TABLE locations
 (
- location_id int NOT NULL,
- session_uid uuid default NOT NULL,
+ location_id SERIAL DEFAULT NOT NULL,
+ session_uid varchar(255) NOT NULL,
  latitude    numeric NULL,
  longitude   numeric NULL,
  CONSTRAINT PK_locations PRIMARY KEY ( location_id ),
@@ -12,3 +12,5 @@ CREATE INDEX fkIdx_18 ON locations
 (
  session_uid
 );
+
+CREATE SEQUENCE location_id;
