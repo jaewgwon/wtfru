@@ -7,7 +7,7 @@
       <b-navbar-nav class="ml-auto">
         <b-nav-item-dropdown text="Lang" right>
           <b-dropdown-item href="#">한국어</b-dropdown-item>
-          <b-dropdown-item href="#">Engli</b-dropdown-item>
+          <b-dropdown-item href="#">English</b-dropdown-item>
           <b-dropdown-item href="#">日本</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
