@@ -34,7 +34,7 @@ const ACTIONS = {
   PUT_STATUS (uid, context) {
     putStatus()
       .then((response) => { uid.commit('PUT_STATE', response.data) })
-      .catch((error) => { context.commit('error', error) });
+      .catch((error) => { context.commit('error', error) })
   }
 }
 

@@ -139,7 +139,7 @@ export default {
     margin-bottom: 3vh;
   }
   .create-components-button {
-    margin-top: 10vw;
+    margin-top: 7vh;
   }
 }
 @media screen and (max-width: 575px) {
@@ -147,7 +147,7 @@ export default {
     margin-bottom: 5vh;
   }
   .create-components-button {
-    margin-top: 20vw;
+    margin-top: 12vh;
   }
 }
 </style>

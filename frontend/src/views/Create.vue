@@ -26,18 +26,18 @@ export default {
 }
 @media screen and (min-width:576px) {
   .create {
-    margin-top: 10vw;
+    margin-top: 5vh;
   }
   .create-components-input {
-    margin-top: 5vw;
+    margin-top: 5vh;
   }
 }
 @media screen and (max-width: 575px) {
   .create {
-    margin-top: 25vw;
+    margin-top: 5vh;
   }
   .create-components-input {
-    margin-top: 15vw;
+    margin-top: 5vh;
   }
 }
 </style>
