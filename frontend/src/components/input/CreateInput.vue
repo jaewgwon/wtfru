@@ -9,7 +9,6 @@
           id="input-title"
           type="text"
           v-model.trim="$v.title.$model" :class="{ 'is-invalid':$v.title.$error, 'is-valid':!$v.title.$invalid }"
-          @blur="checkDuplicate"
           placeholder="Enter your title"
         ></b-form-input>
         <div class="valid-feedback">Your Title is valid.</div>
@@ -67,7 +66,7 @@
 import { validationMixin } from 'vuelidate'
 import { required, numeric, minLength, maxLength, sameAs } from 'vuelidate/lib/validators'
 import CreateButton from '../../components/button/CreateButton.vue'
-import { network } from '../../api/module/network'
+import { api } from '../../api/module/api'
 
 export default {
   mixins: [validationMixin],
@@ -78,7 +77,7 @@ export default {
       password: '',
       repeatpassword: '',
       submitstatus: null,
-      availableTitle: true
+      availableTitle: null
     }
   },
   validations: {
@@ -104,26 +103,14 @@ export default {
         title: this.title,
         password: this.password
       }
-      const response = await network.createSession(createSessionParams)
+      const response = await api.postSession(createSessionParams)
       if (this.$v.$invalid && this.availableTitle === false && response.status !== 200) {
         this.submitstatus = 'FAIL'
         this.availableTitle = false
       } else {
         this.submitstatus = 'SUCCESS'
         this.availableTitle = true
-        this.$router.push('/join')
-      }
-    },
-    async checkDuplicate () {
-      const checkDuplicateParams = {
-        title: this.title
-      }
-      const response = await network.checkDuplicateTitle(checkDuplicateParams)
-      // Title 중복체크
-      if (!response.data) {
-        this.availableTitle = false
-      } else {
-        this.availableTitle = true
+        this.$router.push('/session?title=' + this.title + '&password=true')
       }
     }
   },
