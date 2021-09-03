@@ -1,5 +1,5 @@
 import { Key } from './key'
-import { network } from './new-network'
+import { network } from './network'
 
 const config = {
   headers: { Authorizatoin: `Bearer ${localStorage.token}` }
@@ -11,24 +11,19 @@ export const api = {
       title: host.title,
       password: host.password
     })
-      .then(response => {
-        if (response.data.accessToken) {
-          localStorage.setItem(JSON.stringify(response.data))
-        }
-        return response.data
-      })
   },
-  getSession (host) {
-    return network.get(Key.SESSION, {
+  postSessionJoin (host) {
+    return network.get(Key.JOIN, {
       title: host.title,
       password: host.password
     })
-      .then(response => {
-        if (response.data.accessToken) {
-          localStorage.setItem(JSON.stringify(response.data))
-        }
-        return response.data
-      })
+  },
+  getSession (host) {
+    return network.get(Key.SESSION, {
+      params: {
+        title: host.title
+      }
+    })
   },
   deleteSession (host) {
     return network.delete(Key.SESSION, {
@@ -42,12 +37,14 @@ export const api = {
     return network.post(Key.LOCATION, {
       latitude: client.latitude,
       longitude: client.longitude
-    }, config)
+    })
   },
   patchLocation (client) {
     return network.patch(Key.LOCATION, {
-      uid: client.uid
-    }, config)
+      uid: client.uid,
+      latitude: client.latitude,
+      longitude: client.longitude
+    })
   },
   getStatus () {
     return network.get(Key.STATUS, null, config)
