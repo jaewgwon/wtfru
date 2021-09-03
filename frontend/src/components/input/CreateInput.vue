@@ -8,7 +8,9 @@
           class="create-input"
           id="input-title"
           type="text"
-          v-model.trim="$v.title.$model" :class="{ 'is-invalid':$v.title.$error, 'is-valid':!$v.title.$invalid }"
+          v-model.lazy="$v.title.$model"
+          :class="{ 'is-invalid':$v.title.$error, 'is-valid':!$v.title.$invalid }"
+          @change="checkDuplicate"
           placeholder="Enter your title"
         ></b-form-input>
         <div class="valid-feedback">Your Title is valid.</div>
@@ -16,7 +18,7 @@
           <span v-if="!$v.title.required">Title is required.</span>
           <span v-if="!$v.title.minLength">Title must have at least {{$v.title.$params.minLength.min}} letters.</span>
           <span v-if="!$v.title.maxLength">Title must have at most {{$v.title.$params.maxLength.max}} letters.</span>
-          <span v-if="!availableTitle">Title not available.</span>
+          <span v-if="availableTitle === false">Title not available.</span>
         </div>
       </b-col>
     </b-row>
@@ -27,7 +29,8 @@
           class="create-input"
           id="input-password"
           type="password"
-          v-model.trim="$v.password.$model" :class="{ 'is-invalid':$v.password.$error, 'is-valid':!$v.password.$invalid }"
+          v-model.trim="$v.password.$model"
+          :class="{ 'is-invalid':$v.password.$error, 'is-valid':!$v.password.$invalid }"
           placeholder="Enter your password"
         ></b-form-input>
         <div class="valid-feedback">Your password is valid.</div>
@@ -46,7 +49,8 @@
           class="create-input"
           id="input-password-repeatpassword"
           type="password"
-          v-model.trim="$v.repeatpassword.$model" :class="{ 'is-invalid':$v.repeatpassword.$error, 'is-valid': (password != '') ? !$v.repeatpassword.$invalid : '' }"
+          v-model.trim="$v.repeatpassword.$model"
+          :class="{ 'is-invalid':$v.repeatpassword.$error, 'is-valid': (password != '') ? !$v.repeatpassword.$invalid : '' }"
           placeholder="Enter your password repeat"
         ></b-form-input>
         <div class="valid-feedback">Your Password is identical.</div>
@@ -66,7 +70,7 @@
 import { validationMixin } from 'vuelidate'
 import { required, numeric, minLength, maxLength, sameAs } from 'vuelidate/lib/validators'
 import CreateButton from '../../components/button/CreateButton.vue'
-import { api } from '../../api/module/api'
+import { api } from '../../api/module/api.js'
 
 export default {
   mixins: [validationMixin],
@@ -76,8 +80,7 @@ export default {
       title: '',
       password: '',
       repeatpassword: '',
-      submitstatus: null,
-      availableTitle: null
+      availableTitle: true
     }
   },
   validations: {
@@ -104,13 +107,21 @@ export default {
         password: this.password
       }
       const response = await api.postSession(createSessionParams)
-      if (this.$v.$invalid && this.availableTitle === false && response.status !== 200) {
-        this.submitstatus = 'FAIL'
-        this.availableTitle = false
-      } else {
-        this.submitstatus = 'SUCCESS'
+      if (this.$v.$invalid && this.availableTitle === true && response.data.accessToken) {
+        localStorage.setItem(JSON.stringify(response.data))
+        this.$router.push('/session/' + this.uid)
+      }
+      return response.data
+    },
+    async checkDuplicate () {
+      const checkTitleParams = {
+        title: this.title
+      }
+      const response = await api.getSession(checkTitleParams)
+      if (!response.data.title) {
         this.availableTitle = true
-        this.$router.push('/session?title=' + this.title + '&password=true')
+      } else {
+        this.availableTitle = false
       }
     }
   },
