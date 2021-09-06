@@ -1,42 +1,45 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:8080/api/session'
+const BASE_URL = 'http://localhost:8080/api/'
+const service = axios.create({
+  baseURL: BASE_URL
+})
+
+service.interceptors.request.use(config => {
+  if (localStorage.token) {
+    config.headers.Authorization = 'Bearer' + JSON.parse(localStorage.token)
+  }
+  return config
+}, error => {
+  return Promise.reject(error)
+})
+
+service.interceptors.response.use(res => {
+  if (res.status >= 200 && res.status < 300) {
+    return res.data
+  } else throw Error('HTTP ERROR', res.status)
+}, error => {
+  return Promise.reject(error)
+})
 
 export const network = {
-  createSession (host) {
-    return axios.post(API_URL, {
-      title: host.title,
-      password: host.password
-    })
-  },
-  checkDuplicateTitle (host) {
-    return axios.post(API_URL, {
-      title: host.title
-    })
-  },
-  joinSession (host) {
-    return axios.post(API_URL, {
-      title: host.title,
-      password: host.password
-    })
-      .then(this.handleResponse)
-      .then(response => {
-        if (response.data.accessToken) {
-          localStorage.setItem('host', JSON.stringify(response.data))
-        }
-        return response.data
-      })
-  },
-  outSession () {
-    localStorage.removeItem('host')
-  },
-  handleResponse (response) {
-    if (response.status === 401) {
-      this.outSession()
-      location.reload(true)
-      const error = response.data && response.data.message
-      return Promise.reject(error)
+  get (key, param) {
+    if (param) {
+      return service.get(BASE_URL + key, param)
+    } else {
+      return service.get(BASE_URL + key)
     }
-    return Promise.resolve(response)
+  },
+  post (key, param) {
+    return service.post(BASE_URL + key, param)
+  },
+  patch (key, param) {
+    return service.patch(BASE_URL + key, param)
+  },
+  put (key, param) {
+    return service.put(BASE_URL + key, param)
+  },
+  delete (key, param) {
+    return service.delete(BASE_URL + key, param)
   }
 }
