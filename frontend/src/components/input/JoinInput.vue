@@ -12,7 +12,7 @@
         ></b-form-input>
         <div class="valid-feedback"></div>
         <div class="invalid-feedback">
-          <span v-if="!$v.password.required">Title is required.</span>
+          <span v-if="!$v.title.required">Title is required.</span>
           <span v-if="submitStatus === 'FAIL'">Please check the title and password again</span>
         </div>
       </b-col>
@@ -72,14 +72,14 @@ export default {
       this.$v.$touch()
       const joinParam = {
         title: this.title,
-        passowrd: this.password
+        password: this.password
       }
       const response = await api.postSession(joinParam)
       if (this.$v.$invalid && !response.data && response.status !== 200) {
         this.submitStatus = 'FAIL'
       } else {
         this.submitStatus = 'SUCCESS'
-        this.$router.push('/session?title=' + this.title + '&password=true')
+        this.$router.push('/session/' + this.title)
       }
     }
   }
